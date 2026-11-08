@@ -1,5 +1,5 @@
 // dialtone-fax: a page laid out to survive a fax machine.
-// Black on white, no shading, a floor under every text size, margins for Letter and A4,
+// Black on white, no shading, a 10 pt floor under text, margins for Letter and A4,
 // a cover block and a one-line footer. Nothing here reaches the network.
 
 /// The smallest text size the layout allows, anywhere on the page.
@@ -13,7 +13,7 @@
 
 #let _field(label, value) = (
   text(weight: "bold", upper(label)),
-  if value == none { [] } else { value },
+  if value == none { [] } else if type(value) == content { value } else { [#value] },
 )
 
 /// The cover block: to, from, date, pages and subject, framed by solid black rules.
@@ -30,6 +30,10 @@
   let shown-pages = if pages == auto {
     context counter(page).final().first()
   } else { pages }
+  assert(
+    type(date) != datetime or date.year() != none,
+    message: "dialtone-fax: date must be a datetime with a date part, a string, content or auto",
+  )
   let shown-date = if date == auto {
     datetime.today().display("[year]-[month]-[day]")
   } else if type(date) == datetime {
@@ -81,6 +85,7 @@
   footer-link: true,
   body,
 ) = {
+  assert(cover in (true, false, "page"), message: "dialtone-fax: cover must be true, false or \"page\", got " + repr(cover))
   assert(paper in margins, message: "dialtone-fax: paper must be \"us-letter\" or \"a4\", got " + repr(paper))
   assert(
     type(body-size) == length and body-size.em == 0,
@@ -130,9 +135,9 @@
     if text.size < size-floor { set text(size: size-floor); it } else { it }
   }
   // Sub- and superscripts keep the full text size and are only raised or lowered: Typst scales them after
-  // show rules run, so a smaller size here would slip under the floor.
-  set super(typographic: false, size: 1em)
-  set sub(typographic: false, size: 1em)
+  // show rules run, so a smaller size, even one passed directly, would slip under the floor.
+  show super: it => if it.size == 1em and it.typographic == false { it } else { super(size: 1em, typographic: false, it.body) }
+  show sub: it => if it.size == 1em and it.typographic == false { it } else { sub(size: 1em, typographic: false, it.body) }
   show footnote.entry: set text(size: size-floor)
   set footnote.entry(separator: line(length: 30%, stroke: 0.75pt + black))
 

@@ -4,7 +4,7 @@
 
 <h1 align="center">dialtone-fax</h1>
 
-<p align="center">Typst pages that hold up on a fax machine: black on white, a cover block and a floor under every text size. From <a href="https://faxforagents.com">Fax for Agents</a>.</p>
+<p align="center">Typst pages that hold up on a fax machine: black on white, a cover block and a 10 pt floor under body text. From <a href="https://faxforagents.com">Fax for Agents</a>.</p>
 
 <p align="center">
   <a href="https://faxforagents.com">Website</a> ·
@@ -25,7 +25,7 @@ and small type breaks up. This template lays out a document with that in mind:
 
 - a cover block with to, from, both fax numbers, the date, the page count and the subject
 - black text on white, with no fills or tints by default
-- a floor of 10 pt under every piece of text, footnotes and superscripts included
+- a floor of 10 pt under text, footnotes and sub- and superscripts included (math and `scale` are not covered)
 - margins for US Letter and A4
 - a one-line footer with the page count and a link to faxforagents.com
 
@@ -62,13 +62,13 @@ Dear records clerk,
 | Option | Default | What it does |
 |---|---|---|
 | `to`, `to-fax`, `from`, `from-fax`, `subject` | `none` | Cover block fields. Empty fields stay blank. |
-| `pages` | `auto` | Page count on the cover. `auto` counts the pages of this document. Pass a number if you add pages from elsewhere. |
+| `pages` | `auto` | Page count on the cover. `auto` counts the pages of this document, a cover page included. Pass a number if you add pages from elsewhere. |
 | `date` | `auto` | `auto` is today as YYYY-MM-DD. Takes a `datetime` or any content. |
 | `title` | `"Fax"` | The large word above the cover block. |
 | `paper` | `"us-letter"` | `"us-letter"` or `"a4"`. Anything else stops the compile with a message. |
 | `body-size` | `12pt` | Body text size. Below 10 pt stops the compile with a message. |
 | `font` | `("Liberation Sans", "DejaVu Sans", "Noto Sans")` | Tried in order. Typst falls back to its own fonts when none is installed. |
-| `cover` | `true` | `true` puts the block on page 1, `"page"` gives it a page of its own, `false` leaves it out. |
+| `cover` | `true` | `true` puts the block on page 1, `"page"` gives it a page of its own, `false` leaves it out. Anything else stops the compile. |
 | `footer-link` | `true` | `false` keeps the page count and drops the faxforagents.com link. |
 
 `cover-block` is exported on its own if you want the block without the page setup. `size-floor` is the
@@ -85,7 +85,8 @@ post [The smallest font that survives a fax](https://faxforagents.com/blog/small
 has the results and their limits.
 
 Sub- and superscripts keep the full text size. Typst scales them after show rules run, so a smaller
-size would slip under the floor.
+size would slip under the floor. Two things are outside it: math, whose scripts Typst sizes on its own,
+and anything inside `scale`. Keep both out of a fax page or check the result.
 
 ## What it does not do
 
