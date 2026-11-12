@@ -10,6 +10,7 @@
   <a href="https://faxforagents.com">Website</a> ·
   <a href="https://faxforagents.com/docs/">Docs</a> ·
   <a href="https://faxforagents.com/docs/send-fax/">Send a fax</a> ·
+  <a href="https://app.faxforagents.com">Dashboard</a> ·
   <a href="https://faxforagents.com/pricing/">Pricing</a> ·
   <a href="https://faxforagents.com/changelog/">Changelog</a>
 </p>
