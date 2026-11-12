@@ -12,7 +12,8 @@
   <a href="https://faxforagents.com/docs/send-fax/">Send a fax</a> ·
   <a href="https://app.faxforagents.com">Dashboard</a> ·
   <a href="https://faxforagents.com/pricing/">Pricing</a> ·
-  <a href="https://faxforagents.com/changelog/">Changelog</a>
+  <a href="https://faxforagents.com/changelog/">Changelog</a> ·
+  <a href="https://faxforagents.com/affiliates/">Affiliate program</a>
 </p>
 
 <div align="center">
